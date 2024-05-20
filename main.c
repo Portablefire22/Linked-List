@@ -10,11 +10,10 @@ typedef struct node {
 void print_list(node_t* head) {
   printf("Normal: ");
   printf("[");
-  node_t* current = head;
   while (1) {
-    printf("%d", current->item);
-    current = current->next;
-    if (current == NULL) {
+    printf("%d", head->item);
+    head = head->next;
+    if (head == NULL) {
       break;
     }
     printf(",");
@@ -25,17 +24,16 @@ void print_list(node_t* head) {
 void rev_print_list(node_t* head) {
   printf("Reversed: ");
   printf("[");
-  node_t* current = head;
   while (1) { // Get final item
-    if (current->next == NULL) {
+    if (head->next == NULL) {
       break;
     }
-    current = current->next;
+    head = head->next;
   }
   while (1) {
-    printf("%d", current->item);
-    current = current->prev;
-    if (current == NULL) {
+    printf("%d", head->item);
+    head = head->prev;
+    if (head == NULL) {
       break;
     }
     printf(",");
@@ -44,22 +42,21 @@ void rev_print_list(node_t* head) {
 }
 
 void push(node_t* head, int value) {
-  node_t* current = head;
   while (1) { // Get to last item
-    if (current->next == NULL) {
-      current->next = (node_t*) malloc(sizeof(node_t));
-      if (current == NULL) {
+    if (head->next == NULL) {
+      head->next = (node_t*) malloc(sizeof(node_t));
+      if (head->next == NULL) {
         printf("Could not allocate memory");
         return;
       }
-      current->next->prev = current;
-      current = current->next;
+      head->next->prev = head;
+      head = head->next;
       break;
     }
-    current = current->next;
+    head = head->next;
   }
-  current->item = value;
-  current->next = NULL;
+  head->item = value;
+  head->next = NULL;
 }
 
 void insert(node_t* head, int value, int index) {
