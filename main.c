@@ -77,6 +77,15 @@ void insert(node_t* head, int value, int index) {
   head->next = tmp;
 }
 
+int get(node_t* head, int index) {
+  int i = 0;
+  while (i != index) {
+    head = head->next;
+    i++;
+  }
+  return head->item;
+}
+
 void free_list(node_t* head) {
   node_t* tmp = NULL;
   while (head != NULL) {
@@ -103,6 +112,8 @@ int main() {
   }
 
   insert(head, 420, 3);
+
+  printf("item at position %d = %d\n", 3, get(head, 3));
 
   print_list(head);
   rev_print_list(head);
