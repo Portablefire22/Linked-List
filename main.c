@@ -77,13 +77,17 @@ void insert(node_t* head, int value, int index) {
   head->next = tmp;
 }
 
-int get(node_t* head, int index) {
+int* get(node_t* head, int index) {
   int i = 0;
   while (i != index) {
     head = head->next;
+    if (head == NULL) {
+      printf("Error: Index out of range!\n");
+      return NULL;
+    }
     i++;
   }
-  return head->item;
+  return &head->item;
 }
 
 void free_list(node_t* head) {
@@ -113,7 +117,11 @@ int main() {
 
   insert(head, 420, 3);
 
-  printf("item at position %d = %d\n", 3, get(head, 3));
+  int* res = get(head, 9);
+  if (res == NULL) {
+    return -1;
+  }
+  printf("Result: %d\n", *res);
 
   print_list(head);
   rev_print_list(head);
